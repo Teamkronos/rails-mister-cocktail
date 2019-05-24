@@ -1,7 +1,6 @@
 <div class="container w-50">
   <div class="card mt-3">
-    <%= cl_image_tag @cocktail.photos,
-      class: "card-img-top" %>
+    <%= cl_image_tag @cocktail.photo, height: 300, width: 400, crop: :fill %>
      <h3 class="card-header">Name: <%=  @cocktail.name %></h3>
      <div class="card-body">
        <h6 class="card-title">Cocktail description:</h6>
@@ -19,3 +18,5 @@
      </div>
   </div>
 </div>
+
+
