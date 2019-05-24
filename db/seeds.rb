@@ -22,12 +22,16 @@ end
 
 rand_array = %w(a..z)
 puts Ingredient.all.count
-3.times do
-  cocktail = Cocktail.new(name: Faker::Nation.fact)
+url = "https://images.unsplash.com/photo-1545438102-799c3991ffb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+
+  cocktail = Cocktail.new(name: Faker::FunnyName.name)
+  cocktail.remote_photo_url = url
   cocktail.save!
   dose = Dose.create(cocktail_id: cocktail.id, description: 'tasty', ingredient_id: rand(1..Ingredient.all.count))
   dose = Dose.create(cocktail_id: cocktail.id, description: 'tasty1', ingredient_id: rand(1..Ingredient.all.count))
   dose = Dose.create(cocktail_id: cocktail.id, description: 'tasty2', ingredient_id: rand(1..Ingredient.all.count))
-end
+
 
 puts 'seeds completed'
+
+
