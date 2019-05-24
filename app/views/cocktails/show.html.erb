@@ -1,0 +1,21 @@
+<div class="container w-50">
+  <div class="card mt-3">
+    <%= cl_image_tag @cocktail.photos,
+      class: "card-img-top" %>
+     <h3 class="card-header">Name: <%=  @cocktail.name %></h3>
+     <div class="card-body">
+       <h6 class="card-title">Cocktail description:</h6>
+       <ul>
+         <% @cocktail.doses.each do |dose| %>
+           <li class="card-text"><%= dose.ingredient.name %> - <%= dose.description %> <%= link_to "delete", dose_path(dose), method: "delete", data: { confirm: "You sure?" } %></li>
+         <% end %>
+         </ul>
+       <%= link_to new_cocktail_dose_path(@cocktail) do %>
+         <p class="btn btn-primary">  Add an ingredient </p>
+       <% end %>
+       <%= link_to cocktails_path do %>
+         <p class="btn btn-primary">  Back to cocktails home page </p>
+       <% end %>
+     </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="banner">
+    <h1>Cocktails list:</h1>
+  </div>
+  <div class="cards">
+    <% @cocktails.each do |cocktail| %>
+      <div class="card" style="width: 20rem;" >
+       <%= cl_image_tag cocktail.photos,
+      class: "card-img-top" %>
+        <h5 class="card-title"></h5>
+        <div class="godzilla">
+          <%= link_to cocktail.name, cocktail_path(cocktail) %>
+           <%= link_to "<i class='fas fa-trash'></i>".html_safe, cocktail_path(cocktail.id), method: "delete", data: { confirm: "You sure?" } %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
+  <%= link_to new_cocktail_path do %>
+    <p class="btn btn-primary"> Add a new cocktail </p>
+  <% end %>
+
+</div>
