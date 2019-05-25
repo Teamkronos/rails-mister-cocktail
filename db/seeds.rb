@@ -5,33 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'faker'
 require 'open-uri'
-require 'json'
 
-Dose.destroy_all
-Ingredient.destroy_all
-Cocktail.destroy_all
+puts "Destroy ingredients"
+Ingredient.destroy_all if Rails.env.development?
 
-json_string = JSON.load(open('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'))
+puts "Destroy Cocktails"
+Cocktail.destroy_all if Rails.env.development?
 
-json_string["drinks"].each do |ingr|
-  puts ingr
-  Ingredient.create!(name: ingr["strIngredient1"])
+puts "Create ingredients"
+url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+ingredients = JSON.parse(open(url).read)
+ingredients["drinks"].each do |ingredient|
+  i = Ingredient.create(name: ingredient["strIngredient1"])
+  puts "create #{i.name}"
 end
-
-rand_array = %w(a..z)
-puts Ingredient.all.count
-url = "https://images.unsplash.com/photo-1545438102-799c3991ffb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-
-  cocktail = Cocktail.new(name: Faker::FunnyName.name)
-  cocktail.remote_photo_url = url
-  cocktail.save!
-  dose = Dose.create(cocktail_id: cocktail.id, description: 'tasty', ingredient_id: rand(1..Ingredient.all.count))
-  dose = Dose.create(cocktail_id: cocktail.id, description: 'tasty1', ingredient_id: rand(1..Ingredient.all.count))
-  dose = Dose.create(cocktail_id: cocktail.id, description: 'tasty2', ingredient_id: rand(1..Ingredient.all.count))
-
-
-puts 'seeds completed'
-
-
